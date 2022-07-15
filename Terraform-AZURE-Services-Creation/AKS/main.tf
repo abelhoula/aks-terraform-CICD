@@ -89,8 +89,11 @@ resource "azurerm_kubernetes_cluster" "k8s" {
       admin_group_object_ids = [var.aks_admins_group_object_id]
     }
   }
-
+  api_server_authorized_ip_ranges = [
+    "192.0.2.0/24"
+  ]
 }
+
 
 data "azurerm_resource_group" "node_resource_group" {
   name = azurerm_kubernetes_cluster.k8s.node_resource_group
