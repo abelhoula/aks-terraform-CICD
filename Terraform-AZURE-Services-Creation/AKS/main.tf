@@ -75,12 +75,11 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     }
 
   }
-
   network_profile {
     load_balancer_sku = "standard"
     network_plugin    = "azure"
+    network_policy = "calico"
   }
-
   role_based_access_control {
     enabled = var.kubernetes_cluster_rbac_enabled
 
@@ -89,8 +88,8 @@ resource "azurerm_kubernetes_cluster" "k8s" {
       admin_group_object_ids = [var.aks_admins_group_object_id]
     }
   }
-
 }
+
 
 data "azurerm_resource_group" "node_resource_group" {
   name = azurerm_kubernetes_cluster.k8s.node_resource_group
